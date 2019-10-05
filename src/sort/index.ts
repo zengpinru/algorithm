@@ -182,6 +182,61 @@ function quickSort (targetArr: number[]) {
   quickSortProcess(targetArr, 0, len - 1)
 }
 
+/**
+ * 归并排序
+ * @param targetArr 目标数组
+ */
+function heapSort (targetArr: number[]) {
+  const len = targetArr.length
+  if (len < 2) {
+    return
+  }
+  for (let i = 0; i < len; i++) {
+    heapSortProcess(targetArr, i)
+  }
+  let size = len
+  swap(targetArr, 0, --size)
+  while (size > 0) {
+    heapify(targetArr, 0, size)
+    swap(targetArr, 0, --size)
+  }
+}
+
+/**
+ * 把数组调整成大根堆
+ * @param targetArr 目标数组
+ * @param index 下标
+ */
+function heapSortProcess (targetArr: number[], index: number) {
+  while (index > 0) {
+    const pIndex = Math.floor((index - 1) / 2)
+    if (targetArr[index] > targetArr[pIndex]) {
+      swap(targetArr, index, pIndex)
+    }
+    index = pIndex
+  }
+}
+
+/**
+ * 把数组调整成大根堆
+ * @param targetArr 目标数组
+ * @param index 下标
+ * @param size 要调整的元素个数
+ */
+function heapify (targetArr: number[], index: number, size: number) {
+  let left = 2 * index + 1
+  while (left < size) {
+    let maxIndex = left + 1 < size && targetArr[left] < targetArr[left + 1] ? left + 1 : left
+    maxIndex = targetArr[index] > targetArr[maxIndex] ? index : maxIndex
+    if (maxIndex === index) {
+      break
+    }
+    swap(targetArr, maxIndex, index)
+    index = maxIndex
+    left = 2 * index + 1
+  }
+}
+
 let arr = arrayGenerator(10, 20)
-quickSort(arr)
+heapSort(arr)
 console.log(arr)
