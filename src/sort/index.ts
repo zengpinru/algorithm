@@ -183,7 +183,7 @@ function quickSort (targetArr: number[]) {
 }
 
 /**
- * 归并排序
+ * 堆排序
  * @param targetArr 目标数组
  */
 function heapSort (targetArr: number[]) {
